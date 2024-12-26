@@ -3,94 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Stakeout Plotter</title>
+    <title>Stakeout Plotter - Aroha o Aotearoa</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- Add Leaflet CSS -->
+
     <link
       rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
     />
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        overflow: hidden;
-      }
-      #map {
-        width: 100%;
-        height: 70vh;
-        margin-top: 10px;
-        border: 1px solid #ccc;
-      }
-      .controls {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        width: 90%;
-        max-width: 400px;
-      }
-      .controls input {
-        padding: 10px;
-        font-size: 16px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-      }
-      .controls button {
-        padding: 10px;
-        font-size: 16px;
-        background-color: #28a745;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-      .controls button:hover {
-        background-color: #218838;
-      }
-    </style>
+    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
   </head>
   <body>
-    <div class="controls">
-      <input type="text" id="latitude" placeholder="Enter Latitude" />
-      <input type="text" id="longitude" placeholder="Enter Longitude" />
-      <button onclick="plotLocation()">Plot Location</button>
+    <div class="container">
+      <h1>Stakeout Plotter</h1>
+      <div class="form-container">
+        <label for="latitude">Latitude :</label>
+        <input type="text" id="latitude" placeholder="Enter Latitude" />
+        <label for="longitude">Longitude:</label>
+        <input type="text" id="longitude" placeholder="Enter Longitude" />
+        <button id="openMapBtn">Whakatū Mahere | Open Map</button>
+      </div>
+      <div id="map"></div>
     </div>
-    <div id="map"></div>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script>
-      // Initialize the map
-      const map = L.map("map").setView([0, 0], 2); // Default to world view
-      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        maxZoom: 19,
-      }).addTo(map);
-
-      let marker; // Variable to store the marker
-
-      // Function to plot the location
-      function plotLocation() {
-        const lat = parseFloat(document.getElementById("latitude").value);
-        const lng = parseFloat(document.getElementById("longitude").value);
-
-        if (isNaN(lat) || isNaN(lng)) {
-          alert("Please enter valid latitude and longitude values.");
-          return;
-        }
-
-        // Set the map view to the entered coordinates
-        map.setView([lat, lng], 15);
-
-        // Add a marker to the map
-        if (marker) {
-          map.removeLayer(marker); // Remove the old marker if it exists
-        }
-        marker = L.marker([lat, lng]).addTo(map);
-        marker.bindPopup(`Latitude: ${lat}<br>Longitude: ${lng}`).openPopup();
-      }
-    </script>
+    <script src="script.js"></script>
   </body>
 </html>
